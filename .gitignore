@@ -1,0 +1,17 @@
+# build artifacts
+*.o
+mapreduce
+map
+reduce
+
+# generated data
+intermediate/
+out/
+*.tbl
+
+# tests / logs
+test_results/
+
+# editor/OS junk
+.DS_Store
+.vscode/
