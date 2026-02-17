@@ -1,4 +1,4 @@
-# build artifacts
+# builds artifacts
 *.o
 mapreduce
 map
