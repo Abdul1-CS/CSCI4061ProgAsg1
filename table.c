@@ -66,7 +66,7 @@ free(table);
 int table_add(table_t *table, bucket_t *bucket)
 {
 
-    if(bucket == NULL || (table, bucket->ip) != NULL || bucket->ip == NULL)return -1;
+    if(bucket == NULL || table_get(table, bucket->ip) != NULL)return -1;
     int hash = hash_ip(bucket->ip);
     bucket->next = table->buckets[hash];
     table->buckets[hash] = bucket;
