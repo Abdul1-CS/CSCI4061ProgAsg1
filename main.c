@@ -203,5 +203,32 @@ same rule with the child exit status applies as wel
     return 1;
   }
 
+  // Read each output file and print results to stdout
+  DIR *out_dir = opendir("./out");
+  if (out_dir == NULL) {
+    perror("opendir");
+    return 1;
+  }
+
+  struct dirent *out_entry;
+  while ((out_entry = readdir(out_dir)) != NULL) {
+    if (strcmp(out_entry->d_name, ".") == 0 || strcmp(out_entry->d_name, "..") == 0)
+      continue;
+
+    char out_path[MAX_PATH];
+    snprintf(out_path, sizeof(out_path), "./out/%s", out_entry->d_name);
+
+    table_t *result = table_from_file(out_path);
+    if (result == NULL) {
+      fprintf(stderr, "Failed to read output file: %s\n", out_path);
+      closedir(out_dir);
+      return 1;
+    }
+
+    table_print(result);
+    table_free(result);
+  }
+
+  closedir(out_dir);
   return 0;
 }
